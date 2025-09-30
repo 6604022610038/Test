@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyChatApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Kanit', sans-serif; background:#e5ddd5; }
+
+/* Header */
+header { background:#00c300; color:white; padding:15px 20px; font-size:1.4em; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+
+/* Login/Register */
+#loginArea {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    height:calc(100vh - 50px); gap:10px; background:rgba(255,255,255,0.9);
+}
+#loginArea input { padding:10px 12px; width:200px; border-radius:8px; border:1px solid #ccc; font-size:1em; }
+#loginArea button { padding:10px 20px; border-radius:8px; border:none; background:#00c300; color:white; font-weight:bold; cursor:pointer; transition:0.3s; }
+#loginArea button:hover { background:#009900; }
+
+/* Container */
+.container { display:flex; height:calc(100vh - 50px); box-shadow:0 0 10px rgba(0,0,0,0.05); }
+
+/* Sidebar */
+.sidebar { width:220px; background:#fff; border-right:1px solid #ddd; padding:15px 10px; display:flex; flex-direction:column; gap:8px; overflow-y:auto; }
+.friend { padding:10px; border-radius:10px; cursor:pointer; display:flex; align-items:center; transition:0.2s; font-weight:500; background:#f9f9f9; }
+.friend:hover { background:#e6f7ff; }
+.friend.online::before, .friend.offline::before { content:''; display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; }
+.friend.online::before { background:#00c300; }
+.friend.offline::before { background:#ccc; }
+
+/* Chat Area */
+.chat-area { flex:1; display:flex; flex-direction:column; background:#f0f2f5; }
+#messages { flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+.message { max-width:70%; padding:10px 15px; border-radius:20px; word-wrap:break-word; box-shadow:0 1px 3px rgba(0,0,0,0.1); font-size:0.95em; line-height:1.4; position: relative; }
+.message.from-me { background:#dcf8c6; align-self:flex-end; }
+.message.from-friend { background:#fff; align-self:flex-start; }
+.message-time { font-size:10px; color:#999; margin-top:3px; text-align:right; }
+.message img { max-width:200px; border-radius:10px; margin-top:5px; }
+.message a { font-size:12px; color:#00c300; text-decoration:none; display:block; margin-top:3px; }
+
+/* Input Area */
+.input-area { display:flex; gap:10px; padding:10px 15px; background:#fff; border-top:1px solid #ddd; }
+.input-area input[type="text"] { flex:1; padding:10px 15px; border-radius:20px; border:1px solid #ccc; outline:none; font-size:1em; }
+.input-area button { padding:10px 20px; border-radius:20px; border:none; background:#00c300; color:white; font-weight:bold; cursor:pointer; transition:0.3s; }
+.input-area button:hover { background:#009900; }
+
+/* Scrollbar */
+#messages::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width:6px; }
+#messages::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.2); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<header>MyChatApp</header>
+
+<!-- Login/Register -->
+<div id="loginArea">
+    <input type="text" id="username" placeholder="ชื่อผู้ใช้">
+    <input type="password" id="password" placeholder="รหัสผ่าน">
+    <button id="loginBtn">เข้าสู่ระบบ</button>
+    <button id="registerBtn">สมัครสมาชิก</button>
+</div>
+
+<!-- Chat Container -->
+<div class="container" id="chatContainer" style="display:none;">
+    <div class="sidebar">
+        <input type="text" id="roomInput" placeholder="สร้างห้องใหม่">
+        <button id="createRoomBtn">สร้างห้อง</button>
+        <div id="roomList"></div>
+    </div>
+    <div class="chat-area">
+        <div id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="พิมพ์ข้อความ...">
+            <button id="sendBtn">ส่ง</button>
+        </div>
+        <div class="input-area">
+            <input type="file" id="fileInput">
+            <button id="sendFileBtn">ส่งไฟล์</button>
+        </div>
+    </div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
